@@ -1,7 +1,5 @@
-import React, { useEffect, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { motion, useInView, useAnimation } from "framer-motion";
 import {
@@ -22,7 +20,6 @@ import {
   Lightbulb,
   Star,
 } from "lucide-react";
-import { useState } from "react";
 import Navbar from "../components/Navbar";
 import Lenis from "@studio-freight/lenis";
 
