@@ -4,38 +4,50 @@ import { useEffect, useRef } from "react";
 const VoiceflowChatbot = () => {
   const scriptLoadedRef = useRef(false);
 
-  useEffect(() => {
-    // Prevent duplicate loading in React StrictMode
-    if (scriptLoadedRef.current) return;
-    
-    // Check if the Voiceflow script is already loaded
-    if (!window.voiceflow) {
-      scriptLoadedRef.current = true;
-      const script = document.createElement("script");
-      script.type = "text/javascript";
+useEffect(() => {
+  const loadChatbot = () => {
+    const isDark = document.documentElement.classList.contains("dark");
 
-     const isDark = document.documentElement.classList.contains("dark");
-
-script.innerHTML = `
-  (function(d, t) {
-    var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
-    v.onload = function() {
+    if (window.voiceflow?.chat) {
       window.voiceflow.chat.load({
-        verify: { projectID: '695f3fcb847e07b5c98aefe7' },
-        url: 'https://general-runtime.voiceflow.com',
-        versionID: 'production',
+        verify: { projectID: "695f3fcb847e07b5c98aefe7" },
+        url: "https://general-runtime.voiceflow.com",
+        versionID: "production",
         voice: {
-          url: "https://runtime-api.voiceflow.com"
+          url: "https://runtime-api.voiceflow.com",
         },
         styling: {
-          theme: '${isDark ? "dark" : "light"}'
-        }
+          theme: isDark ? "dark" : "light",
+        },
       });
     }
-    v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; 
-    v.type = "text/javascript"; 
-    s.parentNode.insertBefore(v, s);
-  })(document, 'script');
+  };
+
+  if (!window.voiceflow) {
+    const script = document.createElement("script");
+    script.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
+    script.type = "text/javascript";
+
+    script.onload = () => {
+      loadChatbot();
+    };
+
+    document.body.appendChild(script);
+  } else {
+    loadChatbot();
+  }
+
+  const observer = new MutationObserver(() => {
+    loadChatbot();
+  });
+
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+
+  return () => observer.disconnect();
+}, []);  
 `;
 
       document.body.appendChild(script);
