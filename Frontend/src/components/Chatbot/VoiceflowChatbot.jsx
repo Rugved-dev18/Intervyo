@@ -18,14 +18,20 @@ const VoiceflowChatbot = () => {
         (function(d, t) {
           var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
           v.onload = function() {
-            window.voiceflow.chat.load({
-              verify: { projectID: '695f3fcb847e07b5c98aefe7' },
-              url: 'https://general-runtime.voiceflow.com',
-              versionID: 'production',
-              voice: {
-                url: "https://runtime-api.voiceflow.com"
-              }
-            });
+          const isDark = document.documentElement.classList.contains("dark"); //
+
+        window.voiceflow.chat.load({
+        verify: { projectID: '695f3fcb847e07b5c98aefe7' },
+        url: 'https://general-runtime.voiceflow.com',
+        versionID: 'production',
+        voice: {
+        url: "https://runtime-api.voiceflow.com"
+    },
+
+    styling: {
+      theme: isDark ? 'dark' : 'light'
+    }
+}); 
           }
           v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; 
           v.type = "text/javascript"; 
@@ -47,16 +53,21 @@ const VoiceflowChatbot = () => {
       scriptLoadedRef.current = true;
       // If already loaded, initialize the chat
       if (window.voiceflow?.chat) {
-        window.voiceflow.chat.load({
-          verify: { projectID: "695f3fcb847e07b5c98aefe7" },
-          url: "https://general-runtime.voiceflow.com",
-          versionID: "production",
-          
-          voice: {
-            url: "https://runtime-api.voiceflow.com",
-          },
-        });
-      }
+       const isDark = document.documentElement.classList.contains("dark"); 
+
+  window.voiceflow.chat.load({
+    verify: { projectID: "695f3fcb847e07b5c98aefe7" },
+    url: "https://general-runtime.voiceflow.com",
+    versionID: "production",
+    voice: {
+      url: "https://runtime-api.voiceflow.com",
+    },
+
+    styling: {
+      theme: isDark ? 'dark' : 'light'
+    }
+  });
+}
     }
   }, []);
 
