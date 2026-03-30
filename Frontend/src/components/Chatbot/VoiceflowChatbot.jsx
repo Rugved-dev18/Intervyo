@@ -16,28 +16,26 @@ const VoiceflowChatbot = () => {
 
       script.innerHTML = `
         (function(d, t) {
-          var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
-          v.onload = function() {
-          const isDark = document.documentElement.classList.contains("dark"); //
-
-        window.voiceflow.chat.load({
+    var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+    v.onload = function() {
+      window.voiceflow.chat.load({
         verify: { projectID: '695f3fcb847e07b5c98aefe7' },
         url: 'https://general-runtime.voiceflow.com',
         versionID: 'production',
         voice: {
-        url: "https://runtime-api.voiceflow.com"
-    },
+          url: "https://runtime-api.voiceflow.com"
+        },
 
-    styling: {
-      theme: isDark ? 'dark' : 'light'
+        styling: {
+          theme: '${isDark ? "dark" : "light"}'
+        }
+      });
     }
-}); 
-          }
-          v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; 
-          v.type = "text/javascript"; 
-          s.parentNode.insertBefore(v, s);
-        })(document, 'script');
-      `;
+    v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; 
+    v.type = "text/javascript"; 
+    s.parentNode.insertBefore(v, s);
+  })(document, 'script');
+`;
 
       document.body.appendChild(script);
 
