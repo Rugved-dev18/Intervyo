@@ -14,8 +14,10 @@ const VoiceflowChatbot = () => {
       const script = document.createElement("script");
       script.type = "text/javascript";
 
-      script.innerHTML = `
-        (function(d, t) {
+     const isDark = document.documentElement.classList.contains("dark");
+
+script.innerHTML = `
+  (function(d, t) {
     var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
     v.onload = function() {
       window.voiceflow.chat.load({
@@ -25,7 +27,6 @@ const VoiceflowChatbot = () => {
         voice: {
           url: "https://runtime-api.voiceflow.com"
         },
-
         styling: {
           theme: '${isDark ? "dark" : "light"}'
         }
